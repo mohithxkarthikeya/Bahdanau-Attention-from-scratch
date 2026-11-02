@@ -1,0 +1,8 @@
+attention,seed,epochs_run,best_val_loss,best_val_ppl
+additive,0,1,2.6467,14.11
+fixed_vector,0,13,2.0442,7.72
+additive,0,11,1.6164,5.04
+fixed_vector,1,13,2.0466,7.74
+additive,1,12,1.6248,5.08
+fixed_vector,2,13,2.0333,7.64
+additive,2,14,1.6056,4.98

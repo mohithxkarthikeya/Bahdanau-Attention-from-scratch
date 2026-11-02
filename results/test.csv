@@ -1,0 +1,7 @@
+attention,seed,test_loss,test_ppl,bleu
+fixed_vector,0,2.0529,7.79,23.81
+additive,0,1.6646,5.28,33.14
+fixed_vector,1,2.0481,7.75,24.42
+additive,1,1.6634,5.28,33.08
+fixed_vector,2,2.0337,7.64,25.04
+additive,2,1.6707,5.32,32.83

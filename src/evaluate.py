@@ -40,7 +40,7 @@ def translate(model, src_sents, tgt_sents, src_vocab, tgt_vocab, device):
 
 def bleu_score(hyps, refs):
     # text is already lowercased and split into words, so no extra tokenizing
-    return sacrebleu.corpus_bleu(hyps, [refs], tokenize="none").score
+        return sacrebleu.corpus_bleu(hyps, [refs], tokenize="none", force=True).score
 
 
 def append_rows(path, header, rows):
