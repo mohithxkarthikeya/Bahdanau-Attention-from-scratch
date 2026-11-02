@@ -59,7 +59,7 @@ Both use the same bidirectional GRU encoder, the same sizes and the same decoder
 **1. Score.** How useful is source word `j` for the word I am about to write (output step `i`)?
 
 $$
-e_{ij} = v_a^{\top} \tanh\left(W_a \, s_{i-1} + U_a \, h_j\right)
+e_{ij} = v_a^{\top} \tanh\left(W_a s_{i-1} + U_a h_j\right)
 $$
 
 **2. Weights.** Turn the scores into weights that add up to 1.
@@ -71,7 +71,7 @@ $$
 **3. Context.** Take the weighted mix of the source word vectors.
 
 $$
-c_i = \sum_{j=1}^{T_x} \alpha_{ij} \, h_j
+c_i = \sum_{j=1}^{T_x} \alpha_{ij} h_j
 $$
 
 What the letters mean:
@@ -107,7 +107,7 @@ Repeat the train and evaluate commands with `--seed 1` and `--seed 2` to get 3 s
 - `src/layers/encoder.py`: the bidirectional GRU encoder
 - `src/layers/fixed_vector.py`: the plain model (same vector every step)
 - `src/layers/additive.py`: Bahdanau attention
-- `src/models.py`: the seq2seq model that uses one of the two layers
+- `src/model.py`: the seq2seq model that uses one of the two layers
 - `src/train.py`: training with early stopping on validation loss
 - `src/evaluate.py`: test loss, BLEU, and BLEU by sentence length
 - `src/plots.py`: BLEU vs length plot and attention heatmaps
@@ -131,7 +131,7 @@ BLEU by source sentence length (mean of 3 seeds):
 | 16 to 20 words | 167 | 20.80 | 32.72 | +11.92 |
 | 21 or more words | 56 | 12.85 | 21.48 | +8.63 |
 
-![BLEU by sentence length](plots/bleu_vs_length.png)
+<img src="plots/bleu_vs_length.png" alt="BLEU by sentence length" width="500">
 
 The dots are the mean of the 3 seeds, and the bars show how much the seeds differ (standard deviation).
 
@@ -144,9 +144,11 @@ The dots are the mean of the 3 seeds, and the bars show how much the seeds diffe
 - Both models still make mistakes. Some outputs contain `<unk>`, some repeat phrases, and some write things that are not in the source sentence.
 - Attention heatmaps (additive model, seed 0, first three test sentences): the attention mostly moves left to right through the English sentence as the German is written, and it usually lands on the matching word (for example "starring" for *starrt*, "white" for *weißen*, "fence" for *zaun*). Sometimes it looks at the word right after the matching one. The heatmaps also show mistakes: in the first sentence "hat" gets almost no attention and *orangefarbenem* is written twice, and in the second sentence the attention goes back to "grass" at the end and *gras* is repeated. The attention weights show where the model looked, which is not a full explanation of why it wrote a word.
 
-![Attention heatmap, sentence 1](plots/attention_heatmap_0.png)
-![Attention heatmap, sentence 2](plots/attention_heatmap_1.png)
-![Attention heatmap, sentence 3](plots/attention_heatmap_2.png)
+<p>
+<a href="plots/attention_heatmap_0.png"><img src="plots/attention_heatmap_0.png" alt="Attention heatmap, sentence 1" width="32%"></a>
+<a href="plots/attention_heatmap_1.png"><img src="plots/attention_heatmap_1.png" alt="Attention heatmap, sentence 2" width="32%"></a>
+<a href="plots/attention_heatmap_2.png"><img src="plots/attention_heatmap_2.png" alt="Attention heatmap, sentence 3" width="32%"></a>
+</p>
 
 What I am not sure about:
 
